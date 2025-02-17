@@ -10,7 +10,7 @@ function App() {
   const [users, setUsers] = useState([])  // Stan dla listy użytkowników
 
   const handleAddUser = async () => {
-    const response = await fetch('http://localhost:5001/api/add_user', {
+    const response = await fetch('http://localhost:5002/api/add_user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function App() {
   }
 
   const fetchUsers = async () => {
-    const response = await fetch('http://localhost:5001/api/users')
+    const response = await fetch('http://localhost:5002/api/users')
     const data = await response.json()
     setUsers(data)  // Ustawienie użytkowników w stanie
   }
