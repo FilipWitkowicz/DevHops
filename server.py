@@ -1,16 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS  # Importujemy CORS
 import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  # Pobiera ścieżkę katalogu projektu
 DB_PATH = os.path.join(BASE_DIR, 'database.db')  # Tworzy pełną ścieżkę do pliku bazy danych
+DIST_DIR = os.path.join(BASE_DIR, 'dist')  # Folder z plikami statycznymi Reacta
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=DIST_DIR, static_url_path='/')
 CORS(app)  # Dodajemy obsługę CORS dla całej aplikacji
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'  # Lokalna baza danych w projekcie
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 # Przykładowa tabela (model)
@@ -22,9 +24,14 @@ class User(db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
+# Serwowanie plików Reacta
 @app.route('/')
-def home():
-    return 'Hello, world!'
+def serve_react():
+    return send_from_directory(DIST_DIR, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static_files(path):
+    return send_from_directory(DIST_DIR, path)
 
 # API do dodawania użytkownika
 @app.route('/api/add_user', methods=['POST'])
