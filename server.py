@@ -5,9 +5,10 @@ import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))  # Pobiera ścieżkę katalogu projektu
 DB_PATH = os.path.join(BASE_DIR, 'database.db')  # Tworzy pełną ścieżkę do pliku bazy danych
-DIST_DIR = os.path.join(BASE_DIR, 'dist')  # Folder z plikami statycznymi Reacta
+DIST_DIR = os.path.join(BASE_DIR, 'frontend', 'dist')  # Nowa ścieżka do plików statycznych Reacta
 
-app = Flask(__name__, static_folder=DIST_DIR, static_url_path='/')
+
+app = Flask(__name__, static_folder=DIST_DIR, static_url_path='')
 CORS(app)  # Dodajemy obsługę CORS dla całej aplikacji
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'  # Lokalna baza danych w projekcie
