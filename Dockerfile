@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopiujemy backend
-COPY backend/ .
+COPY server.py .
 
 # Kopiujemy pliki statyczne z frontendu (dist)
 COPY frontend/dist/ /app/static/
