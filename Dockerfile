@@ -20,7 +20,7 @@ COPY server.py .
 COPY frontend/dist/ /app/static/
 
 # Otwieramy port
-EXPOSE 8000
+EXPOSE 31628
 
 # Uruchamiamy serwer Flask z Gunicorn
 CMD ["gunicorn", "-b", "0.0.0.0:31628", "server:app"]
