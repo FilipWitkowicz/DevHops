@@ -23,4 +23,5 @@ COPY frontend/dist/ /app/static/
 EXPOSE 5000
 
 # Uruchamiamy serwer Flask z Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "server:app"]
+#CMD ["gunicorn", "-b", "0.0.0.0:5000", "server:app"]
+CMD ["python3", "/app/server.py"]
